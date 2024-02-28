@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hekk</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body >
+    <header>
+        <h1 class="text-6xl">hunting phn</h1>
+    </header>
+    <main class="container mx-auto mt-10">
+
+      <section>
+        <div class="bg-gray-100 p-4 m-4">
+          <input id="search-filed" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+          <button onclick="handleSearch()" class="btn btn-active btn-accent uppercase">Search</button>
+
+          <!-- another search field -->
+          <!-- <input id="search-filed2" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+          <button onclick="handleSearch2()" class="btn btn-secondary">SEARCH</button> -->
+        </div>
+      </section>
+
+      
+
+      <!-- search result -->
+      <section>
+        <!-- spinner -->
+      <div id="loading-spinner" class="text-center my-40 hidden">
+        <span class="loading loading-spinner loading-xs"></span>
+      </div>
+        <div id="phone-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-11"> 
+        </div>
+        <!-- show all btn -->
+        <div id="show-all-container" class="hidden text-center my-11">
+          <button onclick="handleShowAll()" class="btn btn-accent">Show All</button>
+        </div>
+      </section>
+    </main>
+    <footer>
+
+    </footer>
+
+    <!-- script -->
+    <script src="./index.js"></script>
+    <script src="./test.js"></script>
+  </body>
+</html>
