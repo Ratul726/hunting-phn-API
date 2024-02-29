@@ -1,4 +1,4 @@
-const loadPhone = async (searchText,isShowAll) =>{
+const loadPhone = async (searchText = 'i',isShowAll) =>{
     const response = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
     const data = await response.json();
     const phones = data.data;
@@ -9,13 +9,13 @@ const loadPhone = async (searchText,isShowAll) =>{
 
 
 const displayPhones = (phones,isShowAll) => {
-    // console.log(phones);
+    console.log(phones);
 
     const phoneContainer = document.getElementById('phone-container');
     phoneContainer.innerText = '';
     // phoneContainer.textContent= '';
     const showAllContainer = document.getElementById('show-all-container')
-    if(phones.length > 9){
+    if(phones.length > 9 && !isShowAll){
       showAllContainer.classList.remove('hidden')
     }else{
       showAllContainer.classList.add('hidden')
@@ -27,7 +27,7 @@ const displayPhones = (phones,isShowAll) => {
 
     // console.log(phones.length)
         phones.forEach(phone => {
-        console.log(phone);
+        // console.log(phone);
         // 1 create a div 
         const phoneCard = document.createElement('div');
         phoneCard.classList = `card bg-base-100 shadow-xl` ;
@@ -39,7 +39,7 @@ const displayPhones = (phones,isShowAll) => {
               <h2 class="card-title text-4xl">${phone.phone_name}</h2>
               <p>If a dog chews shoes whose shoes does he choose?</p>
               <div class="card-actions">
-                <button class="btn btn-primary">Show Details</button>
+                <button onclick="handleShowDetail('${phone.slug}')" class="btn btn-primary text-white">Show Details</button>
               </div>
             </div>
         `;
@@ -47,6 +47,45 @@ const displayPhones = (phones,isShowAll) => {
 
     })
     toggleLoadingSpinner(false)
+}
+// 
+
+ const handleShowDetail =async (id) =>{
+// console.log('handle show details' ,id);
+
+ const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
+ const data = await res.json();
+//  console.log(data);
+
+ const phone = data.data
+ showPhoneDetails(phone)
+ }
+
+
+//  show phn details
+
+const showPhoneDetails = (phone) =>{
+  console.log(phone);
+
+  const phoneName  = document.getElementById('phone-name');
+  phoneName.innerText = phone.name;
+
+  const show_details_Container = document.getElementById('show-details-container');
+  show_details_Container.innerHTML = `
+  <img src="${phone.image}">
+  <p><span class="text-2xl font-bold">Storage :</span>${phone.mainFeatures?.storage}</p>
+  <p><span class="text-2xl font-bold">Details :</span>${phone.mainFeatures?.displaySize}</p>
+  <p><span class="text-2xl font-bold">Memory :</span>${phone.mainFeatures?.memory}</p>
+  <p><span class="text-2xl font-bold">Slug :</span>${phone.slug}</p>
+  <p><span class="text-2xl font-bold">ReleaseDate
+  :</span>${phone?.releaseDate
+  }</p>
+  <p><span class="text-2xl font-bold">Brand :</span>${phone?.brand}</p>
+  <p><span class="text-2xl font-bold">GPS :</span>${phone?.others?.GPS}</p>
+  `
+// show the modal
+show_details_modal.showModal()
+
 }
 
 
@@ -85,3 +124,5 @@ const handleShowAll =() => {
   handleSearch(true)
   console.log('hello')
 }
+
+loadPhone();

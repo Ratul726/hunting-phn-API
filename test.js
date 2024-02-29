@@ -5,3 +5,5 @@ const loadPhone5 = async ()=> {
     console.log(phn)
 }
 loadPhone5()
+
+// "apple_iphone_xs-9318')" class="btn btn-primary text-white">Show Details</button>
